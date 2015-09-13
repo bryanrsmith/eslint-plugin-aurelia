@@ -9,7 +9,7 @@ export default function noConventionsRule(context) {
 			let decorators = node.decorators || [];
 
 			let isUsingConvention = !decorators.some(d => {
-				return d.expression.type ==='CallExpression'
+				return d.expression.type === 'CallExpression'
 					&& d.expression.callee.name === convention.decorator;
 			});
 

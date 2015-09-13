@@ -20,7 +20,7 @@
   "scripts": {
     "build": "rm -rf dist && babel src --out-dir dist",
     "test": "mocha",
-    "lint": "eslint",
+    "lint": "eslint src/ test/",
     "patch": "release patch",
     "minor": "release minor",
     "major": "release major"

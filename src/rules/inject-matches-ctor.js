@@ -2,7 +2,7 @@ export default function injectMatchesCtorRule(context) {
 	let classDeclarations = [];
 
 	return {
-		'ClassDeclaration'(node) {
+		'ClassDeclaration'() {
 			classDeclarations.unshift({});
 		},
 
@@ -71,7 +71,7 @@ function getIdentifierInjectDecorator(decorators) {
 }
 
 function getInjectDecorators(decorators) {
-	return decorators.filter(d => d.expression.type ==='CallExpression' && d.expression.callee.name === injectIdentifierName);
+	return decorators.filter(d => d.expression.type === 'CallExpression' && d.expression.callee.name === injectIdentifierName);
 }
 
 function getInjectDecoratorInfo(node) {

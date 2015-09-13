@@ -13,21 +13,17 @@ ruleTester.run('inject-matches-ctor', rule, {
 	invalid: [
 		{
 			code: '@inject(1) class Foo { constructor() {} }',
-			errors: [
-				{
-					message: 'Constructor parameters do not match injected dependencies.',
-					type: 'Decorator'
-				}
-			]
+			errors: [{
+				message: 'Constructor parameters do not match injected dependencies.',
+				type: 'Decorator'
+			}]
 		},
 		{
 			code: 'class Foo { static inject() { return [1]; } constructor(a, b) {} }',
-			errors: [
-				{
-					message: 'Constructor parameters do not match injected dependencies.',
-					type: 'MethodDefinition'
-				}
-			]
+			errors: [{
+				message: 'Constructor parameters do not match injected dependencies.',
+				type: 'MethodDefinition'
+			}]
 		},
 		{
 			code: '@inject class Foo { constructor() {} }',
@@ -39,18 +35,16 @@ ruleTester.run('inject-matches-ctor', rule, {
 		{
 			code: '@inject() @inject() class Foo { constructor() {} }',
 			errors: [{
-					message: 'Unexpected duplicate inject.',
-					type: 'Decorator'
-				}
-			]
+				message: 'Unexpected duplicate inject.',
+				type: 'Decorator'
+			}]
 		},
 		{
 			code: '@inject() class Foo { static inject() { return [1]; } constructor() {} }',
 			errors: [{
-					message: 'Unexpected duplicate inject.',
-					type: 'MethodDefinition'
-				}
-			]
+				message: 'Unexpected duplicate inject.',
+				type: 'MethodDefinition'
+			}]
 		}
 	]
 });

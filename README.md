@@ -36,11 +36,13 @@ Then configure the rules you want to use under the rules section.
 ```json
 {
     "rules": {
-        "aurelia/inject": 2
+        "aurelia/inject-matches-ctor": 2,
+        "aurelia/no-conventions": 0
     }
 }
 ```
 
 # List of supported rules
 
-* `inject`: Verify that inject decorators and static methods declare the same number of dependencies as the class constructor accepts
+* `inject-matches-ctor`: Verify that inject decorators and static methods declare the same number of dependencies as the class constructor accepts
+* `no-conventions`: Disallow classes from relying on Aurelia's naming conventions (e.g., `FooCustomAttribute`) without explicitly declaring resource types with decorators

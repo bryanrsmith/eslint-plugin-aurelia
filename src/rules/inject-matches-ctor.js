@@ -1,4 +1,4 @@
-export default function injectRule(context) {
+export default function injectMatchesCtorRule(context) {
 	let classDeclarations = [];
 
 	return {

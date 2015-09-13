@@ -1,9 +1,9 @@
 import eslint from 'eslint';
-import rule from '../../src/rules/inject';
+import rule from '../../src/rules/inject-matches-ctor';
 
 let ruleTester = new eslint.RuleTester({ parser: 'babel-eslint' });
 
-ruleTester.run('inject', rule, {
+ruleTester.run('inject-matches-ctor', rule, {
 	valid: [
 		'@inject(1) class Foo { constructor(a) {} }',
 		'@inject(1) class Foo { constructor(a) {} } @inject(2) class Bar { constructor(b){} }',

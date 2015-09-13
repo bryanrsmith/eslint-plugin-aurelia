@@ -1,10 +1,10 @@
-import injectRule from './rules/inject';
+import injectRule from './rules/inject-matches-ctor';
 
 export default {
 	rules: {
-		'inject': injectRule
+		'inject-matches-ctor': injectRule
 	},
 	rulesConfig: {
-		'inject': 2
+		'inject-matches-ctor': 2
 	}
 };

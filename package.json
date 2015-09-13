@@ -9,6 +9,11 @@
     "aurelia"
   ],
   "author": "Bryan R Smith <BryanRSmith@gmail.com>",
+  "homepage": "https://github.com/bryanrsmith/eslint-plugin-aurelia",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bryanrsmith/eslint-plugin-aurelia.git"
+  },
   "main": "dist/index.js",
   "directories": {
     "lib": "dist/"

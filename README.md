@@ -37,7 +37,8 @@ Then configure the rules you want to use under the rules section.
 {
     "rules": {
         "aurelia/inject-matches-ctor": 2,
-        "aurelia/no-conventions": 0
+        "aurelia/no-conventions": 0,
+        "aurelia/no-console-log": 0
     }
 }
 ```
@@ -46,3 +47,4 @@ Then configure the rules you want to use under the rules section.
 
 * `inject-matches-ctor`: Verify that inject decorators and static methods declare the same number of dependencies as the class constructor accepts
 * `no-conventions`: Disallow classes from relying on Aurelia's naming conventions (e.g., `FooCustomAttribute`) without explicitly declaring resource types with decorators
+* `no-console-log`: Disallow use of console logging methods. Logging code should use Aurelia's LogManager instead.

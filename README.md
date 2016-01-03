@@ -38,13 +38,39 @@ Then configure the rules you want to use under the rules section.
     "rules": {
         "aurelia/inject-matches-ctor": 2,
         "aurelia/no-conventions": 0,
-        "aurelia/no-console-log": 0
+        "aurelia/no-console-log": 0,
+        "aurelia/sort-class-members": [0, {
+            "order": [
+                { "name": "metadata", "type": "method", "static": true },
+                "[static-properties]",
+                "[static-methods]",
+                "[properties]",
+                { "name": "inject", "static": true },
+                "constructor",
+                "[everything-else]",
+                "[lifecycle]",
+            ]
+        }]
     }
 }
 ```
 
 # List of supported rules
 
-* `inject-matches-ctor`: Verify that inject decorators and static methods declare the same number of dependencies as the class constructor accepts
-* `no-conventions`: Disallow classes from relying on Aurelia's naming conventions (e.g., `FooCustomAttribute`) without explicitly declaring resource types with decorators
-* `no-console-log`: Disallow use of console logging methods. Logging code should use Aurelia's LogManager instead.
+### `inject-matches-ctor`
+Verify that inject decorators declare the same number of dependencies as the class constructor accepts.
+
+### `no-conventions`
+Disallow classes from relying on Aurelia's naming conventions (e.g., `FooCustomAttribute`) without explicitly declaring resource types with decorators. It is recommended to avoid relying on naming conventions in library code because a consuming application may change those conventions.
+
+### `no-console-log`
+Suggest that logging code use Aurelia's `LogManager` instead of console methods.
+
+### `sort-class-members`
+Enforce consistent ordering of class properties and methods.
+This rule delegates to the [`eslint-plugin-sort-class-members`](https://github.com/bryanrsmith/eslint-plugin-sort-class-members) plugin. Please refer to the documentation for that package for configuration information.
+This rule also provides the following groups available for sort order options:
+
+* `[lifecycle]`: matches Aurelia component and router lifecycle methods in the order in which they occur. E.g., `bind` must come before `deactivate`.
+* `[component-lifecycle]`: matches Aurelia component lifecycle methods in the order in which they occur
+* `[router-lifecycle]`: matches Aurelia router lifecycle methods in the order in which they occur

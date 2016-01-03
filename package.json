@@ -30,7 +30,9 @@
     "minor": "release minor",
     "major": "release major"
   },
-  "dependencies": {},
+  "dependencies": {
+    "eslint-plugin-sort-class-members": "0.3.0"
+  },
   "peerDependencies": {
     "eslint": ">=0.8.0"
   },

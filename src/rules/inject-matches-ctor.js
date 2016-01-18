@@ -60,7 +60,7 @@ export default function injectMatchesCtorRule(context) {
 			if (injectElement.deps.length !== ctorParamsLength) {
 				context.report(injectElement.node, 'Constructor parameters do not match injected dependencies.');
 			}
-		}
+		},
 	};
 }
 
@@ -77,14 +77,14 @@ function getInjectDecorators(decorators) {
 function getInjectDecoratorInfo(node) {
 	return {
 		deps: node.expression.arguments,
-		node
+		node,
 	};
 }
 
 function getInjectMethodInfo(node, method) {
 	return {
 		deps: node.elements,
-		node: method
+		node: method,
 	};
 }
 

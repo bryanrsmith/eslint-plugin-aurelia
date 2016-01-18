@@ -3,7 +3,7 @@ import plugin from '../../src';
 
 let ruleTester = new eslint.RuleTester({ parser: 'babel-eslint' });
 let options = [{
-	order: [ 'a', 'b' ]
+	order: [ 'a', 'b' ],
 }];
 
 // rule logic isn't part of this project
@@ -18,8 +18,8 @@ ruleTester.run('sort-class-members', plugin.rules['sort-class-members'], {
 			errors: [
 				{
 					message: 'Expected method a to come before method b.',
-					type: 'MethodDefinition'
-				}
+					type: 'MethodDefinition',
+				},
 			],
 			options,
 		},

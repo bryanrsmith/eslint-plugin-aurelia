@@ -16,17 +16,17 @@ export default function noConventionsRule(context) {
 			if (isUsingConvention) {
 				context.report(node, 'Expected class to declare its resource type with a decorator.');
 			}
-		}
+		},
 	};
 }
 
 const conventions = [{
 	suffix: 'CustomElement',
-	decorator: 'customElement'
+	decorator: 'customElement',
 }, {
 	suffix: 'CustomAttribute',
-	decorator: 'customAttribute'
+	decorator: 'customAttribute',
 }, {
 	suffix: 'ValueConverter',
-	decorator: 'valueConverter'
+	decorator: 'valueConverter',
 }];

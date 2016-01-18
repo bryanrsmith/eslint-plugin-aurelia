@@ -16,6 +16,6 @@ export default {
 		'no-console-log': 0,
 		'sort-class-members': [0, {
 			order: defaultOrder,
-		}]
-	}
+		}],
+	},
 };

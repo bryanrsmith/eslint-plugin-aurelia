@@ -1,5 +1,6 @@
 [![build status][travis-image]][travis-url]
 [![test coverage][coveralls-image]][coveralls-url]
+[![npm][npm-image]][npm-url]
 
 # eslint-plugin-aurelia
 
@@ -82,3 +83,5 @@ This rule also provides the following groups available for sort order options:
 [travis-url]: https://travis-ci.org/bryanrsmith/eslint-plugin-aurelia
 [coveralls-image]: https://img.shields.io/coveralls/bryanrsmith/eslint-plugin-aurelia/master.svg?style=flat-square
 [coveralls-url]: https://coveralls.io/github/bryanrsmith/eslint-plugin-aurelia?branch=master
+[npm-image]: https://img.shields.io/npm/v/eslint-plugin-aurelia.svg?style=flat-square
+[npm-url]: https://www.npmjs.com/package/eslint-plugin-aurelia

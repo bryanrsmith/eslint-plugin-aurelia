@@ -3,7 +3,7 @@ import noConventionsRule from './rules/no-conventions';
 import noConsoleLogRule from './rules/no-console-log';
 import sortClassMembers, { defaultOrder } from './rules/sort-class-members';
 
-export default {
+module.exports = {
 	rules: {
 		'inject-matches-ctor': injectRule,
 		'no-conventions': noConventionsRule,

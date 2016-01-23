@@ -1,3 +1,6 @@
+[![build status][travis-image]][travis-url]
+[![test coverage][coveralls-image]][coveralls-url]
+
 # eslint-plugin-aurelia
 
 ESLint rules for Aurelia projects.
@@ -74,3 +77,8 @@ This rule also provides the following groups available for sort order options:
 * `[lifecycle]`: matches Aurelia component and router lifecycle methods in the order in which they occur. E.g., `bind` must come before `deactivate`.
 * `[component-lifecycle]`: matches Aurelia component lifecycle methods in the order in which they occur
 * `[router-lifecycle]`: matches Aurelia router lifecycle methods in the order in which they occur
+
+[travis-image]: https://img.shields.io/travis/bryanrsmith/eslint-plugin-aurelia/master.svg?style=flat-square
+[travis-url]: https://travis-ci.org/bryanrsmith/eslint-plugin-aurelia
+[coveralls-image]: https://img.shields.io/coveralls/bryanrsmith/eslint-plugin-aurelia/master.svg?style=flat-square
+[coveralls-url]: https://coveralls.io/github/bryanrsmith/eslint-plugin-aurelia?branch=master

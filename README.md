@@ -43,6 +43,11 @@ Then configure the rules you want to use under the rules section.
         "aurelia/inject-matches-ctor": 2,
         "aurelia/no-conventions": 0,
         "aurelia/no-console-log": 0,
+        "aurelia/store-subscriptions": [0, {
+            "setTimeout": true,
+            "setInterval": true,
+            "subscribe": true
+        }],
         "aurelia/sort-class-members": [0, {
             "order": [
                 { "name": "metadata", "type": "method", "static": true },
@@ -69,6 +74,9 @@ Disallow classes from relying on Aurelia's naming conventions (e.g., `FooCustomA
 
 ### `no-console-log`
 Suggest that logging code use Aurelia's `LogManager` instead of console methods.
+
+### `store-unsubscribe`
+Require that the return value of `setTimeout`, `setInterval`, and `subscribe` methods be stored so they can be canceled. It's easy to forget to cancel outstanding timers or intervals and unsubscribe from `EventAggregator` or property observation subscriptions when a view is destroyed. Enable this rule to require the return value of those functions to be stored in a property or variable so cleanup is possible.
 
 ### `sort-class-members`
 Enforce consistent ordering of class properties and methods.

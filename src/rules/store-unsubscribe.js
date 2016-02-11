@@ -29,7 +29,7 @@ function getCallInfo(node) {
 	};
 }
 
-function shouldCheckCall({ name, isMemberExpression}, options) {
+function shouldCheckCall({ name, isMemberExpression }, options) {
 	return (
 		(name === 'setTimeout' && options.setTimeout) ||
 		(name === 'setInterval' && options.setInterval) ||

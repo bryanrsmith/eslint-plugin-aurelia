@@ -51,7 +51,7 @@ export default function injectMatchesCtorRule(context) {
 				return;
 			}
 
-			let [injectElement, ...rest] = injectElements;
+			let [ injectElement, ...rest ] = injectElements;
 			for (let duplicateInject of rest) {
 				context.report(duplicateInject.node, 'Unexpected duplicate inject.');
 			}

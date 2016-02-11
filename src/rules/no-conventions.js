@@ -8,10 +8,10 @@ export default function noConventionsRule(context) {
 
 			let decorators = node.decorators || [];
 
-			let isUsingConvention = !decorators.some(d => {
-				return d.expression.type === 'CallExpression'
-					&& d.expression.callee.name === convention.decorator;
-			});
+			let isUsingConvention = !decorators.some(d =>
+				d.expression.type === 'CallExpression' &&
+				d.expression.callee.name === convention.decorator
+			);
 
 			if (isUsingConvention) {
 				context.report(node, 'Expected class to declare its resource type with a decorator.');

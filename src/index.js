@@ -17,7 +17,7 @@ module.exports = {
 		'no-conventions': 0,
 		'no-console-log': 0,
 		'store-unsubscribe': 0,
-		'sort-class-members': [0, {
+		'sort-class-members': [ 0, {
 			order: defaultOrder,
 		}],
 	},

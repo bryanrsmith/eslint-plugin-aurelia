@@ -8,7 +8,8 @@ ruleTester.run('inject-matches-ctor', rule, {
 		'@inject(1) class Foo { constructor(a) {} }',
 		'@inject(1) class Foo { constructor(a) {} } @inject(2) class Bar { constructor(b){} }',
 		'class Foo { static inject() {return [1]; } constructor(a) {} }',
-		'class Foo { static other() {return [1]; } constructor() {} }',
+		'class Foo { static inject = [1]; constructor(a) {} }',
+		'class Foo { inject = [1]; constructor() {} }',
 	],
 	invalid: [
 		{
@@ -26,17 +27,10 @@ ruleTester.run('inject-matches-ctor', rule, {
 			}],
 		},
 		{
-			code: '@inject class Foo { constructor() {} }',
+			code: 'class Foo { static inject = [1]; constructor(a, b) {} }',
 			errors: [{
-				message: 'Expected arguments to inject.',
-				type: 'Decorator',
-			}],
-		},
-		{
-			code: '@inject() @inject() class Foo { constructor() {} }',
-			errors: [{
-				message: 'Unexpected duplicate inject.',
-				type: 'Decorator',
+				message: 'Constructor parameters do not match injected dependencies.',
+				type: 'ClassProperty',
 			}],
 		},
 		{

@@ -40,6 +40,7 @@ Then configure the rules you want to use under the rules section.
 ```json
 {
     "rules": {
+		"aurelia/inject-type": [2, "property"],
         "aurelia/inject-matches-ctor": 2,
         "aurelia/no-conventions": 0,
         "aurelia/no-console-log": 0,
@@ -66,11 +67,14 @@ Then configure the rules you want to use under the rules section.
 
 # List of supported rules
 
+### `inject-type`
+Require that injected dependencies are consistently declared using decorators, static methods, or static properties. Available options: `"property"`, `"method"`, `"decorator"`.
+
 ### `inject-matches-ctor`
 Verify that inject decorators declare the same number of dependencies as the class constructor accepts.
 
 ### `no-conventions`
-Disallow classes from relying on Aurelia's naming conventions (e.g., `FooCustomAttribute`) without explicitly declaring resource types with decorators. It is recommended to avoid relying on naming conventions in library code because a consuming application may change those conventions.
+Disallow classes from relying on Aurelia's naming conventions (e.g., `FooCustomAttribute`) without explicitly declaring resource types with decorators. It is unsafe to relying on naming conventions in library code because a consuming application may change those conventions.
 
 ### `no-console-log`
 Suggest that logging code use Aurelia's `LogManager` instead of console methods.

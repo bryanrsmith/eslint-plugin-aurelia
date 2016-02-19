@@ -14,14 +14,18 @@ module.exports = {
 		'store-unsubscribe': storeUnsubscribeRule,
 		'sort-class-members': sortClassMembers,
 	},
-	rulesConfig: {
-		'inject-matches-ctor': 2,
-		'inject-type': 0,
-		'no-conventions': 0,
-		'no-console-log': 0,
-		'store-unsubscribe': 0,
-		'sort-class-members': [ 0, {
-			order: defaultOrder,
-		}],
+	configs: {
+		recommended: {
+			rules: {
+				'inject-matches-ctor': 2,
+				'inject-type': 0,
+				'no-conventions': 0,
+				'no-console-log': 0,
+				'store-unsubscribe': 2,
+				'sort-class-members': [ 2, {
+					order: defaultOrder,
+				}],
+			},
+		},
 	},
 };

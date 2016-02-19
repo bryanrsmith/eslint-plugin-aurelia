@@ -8,4 +8,6 @@ export default function noConsoleLogRule(context) {
 	};
 }
 
+noConsoleLogRule.schema = [];
+
 const disallowedConsoleMembers = [ 'debug', 'log', 'info', 'warn', 'error' ];

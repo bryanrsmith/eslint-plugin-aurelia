@@ -18,3 +18,9 @@ export default function injectTypeRule(context) {
 		},
 	};
 }
+
+injectTypeRule.schema = [
+	{
+		enum: [ 'property', 'method', 'decorator' ],
+	},
+];

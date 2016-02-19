@@ -20,6 +20,8 @@ export default function noConventionsRule(context) {
 	};
 }
 
+noConventionsRule.schema = [];
+
 const conventions = [{
 	suffix: 'CustomElement',
 	decorator: 'customElement',

@@ -21,3 +21,5 @@ export default function injectMatchesCtorRule(context) {
 		},
 	};
 }
+
+injectMatchesCtorRule.schema = [];

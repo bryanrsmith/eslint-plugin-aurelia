@@ -16,6 +16,24 @@ export default function storeUnsubscribeRule(context) {
 	};
 }
 
+storeUnsubscribeRule.schema = [
+	{
+		type: 'object',
+		properties: {
+			setTimeout: {
+				type: 'boolean',
+			},
+			setInterval: {
+				type: 'boolean',
+			},
+			subscribe: {
+				type: 'boolean',
+			},
+		},
+		additionalProperties: false,
+	},
+];
+
 function getCallInfo(node) {
 	let callee = node.callee;
 	let isMemberExpression = callee.type === 'MemberExpression';

@@ -1,6 +1,6 @@
 import { sortClassMembers } from 'eslint-plugin-sort-class-members/dist/rules/sort-class-members';
 
-let groups = {
+const groups = {
 	'lifecycle': [
 		{ type: 'method', name: 'configureRouter' },
 		{ type: 'method', name: 'determineActivationStrategy' },

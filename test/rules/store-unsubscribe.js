@@ -1,9 +1,9 @@
 import eslint from 'eslint';
 import rule from '../../src/rules/store-unsubscribe';
 
-let ruleTester = new eslint.RuleTester();
+const ruleTester = new eslint.RuleTester();
 
-let options = [{
+const options = [{
 	setTimeout: false,
 	setInterval: true,
 	subscribe: true,

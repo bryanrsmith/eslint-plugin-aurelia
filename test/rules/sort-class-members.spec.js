@@ -1,8 +1,8 @@
 import eslint from 'eslint';
 import plugin from '../../src';
 
-let ruleTester = new eslint.RuleTester({ parser: 'babel-eslint' });
-let options = [{
+const ruleTester = new eslint.RuleTester({ parser: 'babel-eslint' });
+const options = [{
 	order: [ 'a', 'b' ],
 }];
 

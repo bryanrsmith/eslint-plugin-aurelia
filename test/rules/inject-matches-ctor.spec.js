@@ -1,7 +1,7 @@
 import eslint from 'eslint';
 import rule from '../../src/rules/inject-matches-ctor';
 
-let ruleTester = new eslint.RuleTester({ parser: 'babel-eslint' });
+const ruleTester = new eslint.RuleTester({ parser: 'babel-eslint' });
 
 ruleTester.run('inject-matches-ctor', rule, {
 	valid: [

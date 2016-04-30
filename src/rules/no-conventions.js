@@ -1,14 +1,14 @@
 export default function noConventionsRule(context) {
 	return {
 		'ClassDeclaration'(node) {
-			let convention = conventions.find(c => node.id.name.endsWith(c.suffix));
+			const convention = conventions.find(c => node.id.name.endsWith(c.suffix));
 			if (!convention) {
 				return;
 			}
 
-			let decorators = node.decorators || [];
+			const decorators = node.decorators || [];
 
-			let isUsingConvention = !decorators.some(d =>
+			const isUsingConvention = !decorators.some(d =>
 				d.expression.type === 'CallExpression' &&
 				d.expression.callee.name === convention.decorator
 			);

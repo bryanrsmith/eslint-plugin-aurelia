@@ -1,5 +1,5 @@
 export default function storeUnsubscribeRule(context) {
-	let options = {
+	const options = {
 		setTimeout: true,
 		setInterval: true,
 		subscribe: true,
@@ -8,7 +8,7 @@ export default function storeUnsubscribeRule(context) {
 
 	return {
 		'CallExpression'(node) {
-			let info = getCallInfo(node);
+			const info = getCallInfo(node);
 			if (shouldCheckCall(info, options) && !isParentAcceptable(node)) {
 				context.report(node, messages[info.name]);
 			}
@@ -35,9 +35,9 @@ storeUnsubscribeRule.schema = [
 ];
 
 function getCallInfo(node) {
-	let callee = node.callee;
-	let isMemberExpression = callee.type === 'MemberExpression';
-	let identifier = isMemberExpression ? callee.property : callee;
+	const callee = node.callee;
+	const isMemberExpression = callee.type === 'MemberExpression';
+	const identifier = isMemberExpression ? callee.property : callee;
 
 	return {
 		node,

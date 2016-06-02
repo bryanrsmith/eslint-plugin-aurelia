@@ -12,7 +12,7 @@ export function getInjectInfo(classDeclaration, sourceCode) {
 	return {
 		ctor: {
 			node: ctor,
-			params: ctor.value.params,
+			params: ctor ? ctor.value.params : null,
 		},
 		injects,
 	};

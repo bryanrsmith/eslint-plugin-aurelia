@@ -38,16 +38,16 @@
     "eslint": ">=0.8.0"
   },
   "devDependencies": {
-    "@bryanrsmith/eslint-config-standard": "2.1.3",
-    "babel-cli": "6.9.0",
-    "babel-eslint": "6.0.4",
-    "babel-preset-es2015": "6.9.0",
-    "babel-preset-stage-1": "6.5.0",
-    "coveralls": "2.11.9",
-    "eslint": "2.13.0",
-    "isparta": "4.0.0",
-    "mocha": "2.5.3",
-    "release-script": "1.0.2"
+    "@bryanrsmith/eslint-config-standard": "^2.1.3",
+    "babel-cli": "^6.9.0",
+    "babel-eslint": "^6.0.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-1": "^6.5.0",
+    "coveralls": "^2.11.9",
+    "eslint": "^2.13.0",
+    "isparta": "^4.0.0",
+    "mocha": "^2.5.3",
+    "release-script": "^1.0.2"
   },
   "engines": {
     "node": ">=4.0.0"

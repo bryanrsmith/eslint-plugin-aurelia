@@ -35,7 +35,7 @@
     "eslint-plugin-sort-class-members": "^1.0.1"
   },
   "peerDependencies": {
-    "eslint": ">=0.8.0"
+    "eslint": ">=3.2.1"
   },
   "devDependencies": {
     "@bryanrsmith/eslint-config-standard": "^2.1.3",

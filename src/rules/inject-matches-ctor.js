@@ -14,7 +14,7 @@ export default function injectMatchesCtorRule(context) {
 				context.report(duplicateInject.node, 'Unexpected duplicate inject.');
 			}
 
-			const ctorParamsLength = injectInfo.ctor.params.length;
+			const ctorParamsLength = injectInfo.ctor.params ? injectInfo.ctor.params.length : 0;
 			if (injectElement.deps.length !== ctorParamsLength) {
 				context.report(injectElement.node, 'Constructor parameters do not match injected dependencies.');
 			}

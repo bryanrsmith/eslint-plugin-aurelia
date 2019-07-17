@@ -40,9 +40,11 @@
   "devDependencies": {
     "@bryanrsmith/eslint-config-standard": "^2.1.3",
     "babel-cli": "^6.9.0",
+    "babel-core": "^6.26.3",
     "babel-eslint": "^6.0.4",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-stage-1": "^6.5.0",
+    "babel-register": "^6.26.0",
     "coveralls": "^2.11.9",
     "eslint": "^2.13.0",
     "isparta": "^4.0.0",
@@ -52,11 +54,5 @@
   "engines": {
     "node": ">=4.0.0"
   },
-  "license": "MIT",
-  "babel": {
-    "presets": [
-      "stage-1",
-      "es2015"
-    ]
-  }
+  "license": "MIT"
 }

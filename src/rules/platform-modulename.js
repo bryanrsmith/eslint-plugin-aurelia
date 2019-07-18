@@ -10,8 +10,8 @@ module.exports = {
 		docs: {
 			description: 'Enforce wrapping of module name in PLATFORM.moduleName()',
 			category: 'aurelia',
-			fixable: 'code',
 		},
+		fixable: 'code',
 	},
 	create: context => {
 		let aureliaParameter;

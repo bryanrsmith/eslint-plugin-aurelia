@@ -4,21 +4,28 @@
 
 const { types } = require('./eslint-types');
 
-const calleeObjectIsAureliaUse = node => {
-	if (node.type !== types.MemberExpression) {
+const calleeObjectIsAureliaUse = callee => {
+	if (callee.type !== types.MemberExpression) {
 		// TODO: Remove Console
 		// eslint-disable-next-line no-console
-		console.log('Ignoring node', node);
+		console.log('Ignoring callee', callee);
 
 		return false;
 	}
 
-	const useObject = node.property;
-
-	if (useObject.type !== types.Identifier && useObject.name !== 'use') {
+	const object = callee.object;
+	if (!object) {
 		// TODO: Remove Console
 		// eslint-disable-next-line no-console
-		console.log('Ignoring useObject', useObject);
+		console.log('Ignoring undefined object in callee', callee);
+
+		return false;
+	}
+
+	if (object.type === types.Identifier && object.name !== 'use') {
+		// TODO: Remove Console
+		// eslint-disable-next-line no-console
+		console.log('Ignoring object', object);
 
 		return false;
 	}

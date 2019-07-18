@@ -106,13 +106,15 @@ module.exports = {
 			}
 
 			const object = callee.object;
-			if (!object) {
+			const property = object.property;
+
+			if (property.type !== types.Identifier || property.name !== 'use') {
 				logDebug('Ignoring property', property);
 
 				return false;
 			}
 
-			if (object.type === types.Identifier && object.name !== 'use') {
+			if (!calleeObjectIsAurelia(object)) {
 				return false;
 			}
 

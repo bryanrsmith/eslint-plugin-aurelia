@@ -14,6 +14,16 @@ export function configure(aurelia) {
   aurelia.setRoot(PLATFORM.moduleName('app')) // OK
 }
 `,
+		`
+export function configure(aurelia) {
+  // ignored as not calling on aurelia parameter
+  notAurelia.setRoot('app') // OK
+}
+`,
+		`
+  // ignored as not calling from within configure
+  aurelia.setRoot('app') // OK
+`,
 	],
 	invalid: [
 		{

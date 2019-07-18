@@ -7,7 +7,7 @@ const ruleTester = new eslint.RuleTester({ parser: 'babel-eslint' });
 
 // Use https://astexplorer.net/ and `espree` tokens to transform your `code`
 // into an AST for use here.
-ruleTester.run('platform-modulename :: use.globalResources', rule, {
+ruleTester.run('platform-modulename', rule, {
 	valid: [
 		`
   aurelia.use.globalResources(
@@ -104,16 +104,4 @@ ruleTester.run('platform-modulename :: use.globalResources', rule, {
 			],
 		},
 	],
-});
-
-ruleTester.run('platform-modulename :: Feature Module', rule, {
-	valid: [
-		` // A Feature Module index.js
-  export function configure(config) {
-    // Doesn't use PLATFORM.module()
-    config.globalResources(['./my-component', './my-component-2', 'my-component-3', 'etc.']);
-  }
-`,
-	],
-	invalid: [],
 });

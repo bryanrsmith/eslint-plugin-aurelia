@@ -8,7 +8,7 @@ module.exports = {
 	meta: {
 		type: 'problem',
 		docs: {
-			description: 'TODO',
+			description: 'Enforce wrapping of module name in PLATFORM.moduleName()',
 			category: 'aurelia',
 			fixable: 'code',
 		},

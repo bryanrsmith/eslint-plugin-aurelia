@@ -12,16 +12,36 @@ module.exports = {
 			category: 'aurelia',
 		},
 		fixable: 'code',
+		schema: [
+			{
+				type: 'object',
+				properties: {
+					debug: {
+						type: 'boolean',
+					},
+				},
+				additionalProperties: false,
+			},
+		],
 	},
 	create: context => {
 		let aureliaParameter;
+		let isDebugEnabled = false;
+
+		if (context.options && context.options.length >= 1) {
+			isDebugEnabled = context.options[0].debug;
+		}
+
+		const logDebug = (...args) => {
+			if (isDebugEnabled) {
+				console.log('DEBUG: ', args);
+			}
+		};
 
 		const captureAureliaConfigure = exportNamedDeclaration => {
 			const functionDeclaration = exportNamedDeclaration.declaration;
 			if (functionDeclaration.type !== types.FunctionDeclaration) {
-				// TODO: Remove Console
-				// eslint-disable-next-line no-console
-				console.log('Ignoring exportNamedDeclaration', exportNamedDeclaration);
+				logDebug('Ignoring exportNamedDeclaration', exportNamedDeclaration);
 
 				return;
 			}
@@ -30,18 +50,14 @@ module.exports = {
 				!functionDeclaration.id ||
 				functionDeclaration.id.name !== 'configure'
 			) {
-				// TODO: Remove Console
-				// eslint-disable-next-line no-console
-				console.log('Ignoring non "configure" function', functionDeclaration);
+				logDebug('Ignoring non "configure" function', functionDeclaration);
 
 				return;
 			}
 
 			const params = functionDeclaration.params;
 			if (params.length !== 1) {
-				// TODO: Remove Console
-				// eslint-disable-next-line no-console
-				console.log(
+				logDebug(
 					'Ignoring "configure" function with incorrect params',
 					functionDeclaration
 				);
@@ -54,17 +70,13 @@ module.exports = {
 
 		const calleeObjectIsAurelia = callee => {
 			if (callee.type !== types.MemberExpression) {
-				// TODO: Remove Console
-				// eslint-disable-next-line no-console
-				console.log('Ignoring callee', callee);
+				logDebug('Ignoring callee', callee);
 
 				return false;
 			}
 
 			if (!aureliaParameter) {
-				// TODO: Remove Console
-				// eslint-disable-next-line no-console
-				console.log(
+				logDebug(
 					'Ignoring calleeObjectIsAurelia check, aureliaParameter is not set',
 					callee
 				);
@@ -73,39 +85,34 @@ module.exports = {
 			}
 
 			if (aureliaParameter.name !== callee.object.name) {
-				// TODO: Remove Console
-				// eslint-disable-next-line no-console
-				console.log('Ignoring callee as does not use aurelia', callee);
+				logDebug('aurelia parameter=', aureliaParameter);
+
+				logDebug(
+					'Ignoring callee as does not use aurelia',
+					aureliaParameter,
+					callee
+				);
 
 				return false;
 			}
-
 			return true;
 		};
 
 		const calleeObjectIsAureliaUse = callee => {
 			if (callee.type !== types.MemberExpression) {
-				// TODO: Remove Console
-				// eslint-disable-next-line no-console
-				console.log('Ignoring callee', callee);
+				logDebug('Ignoring callee', callee);
 
 				return false;
 			}
 
 			const object = callee.object;
 			if (!object) {
-				// TODO: Remove Console
-				// eslint-disable-next-line no-console
-				console.log('Ignoring undefined object in callee', callee);
+				logDebug('Ignoring property', property);
 
 				return false;
 			}
 
 			if (object.type === types.Identifier && object.name !== 'use') {
-				// TODO: Remove Console
-				// eslint-disable-next-line no-console
-				console.log('Ignoring object', object);
-
 				return false;
 			}
 

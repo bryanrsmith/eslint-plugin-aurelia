@@ -6,6 +6,7 @@ module.exports = {
 		BlockStatement: 'BlockStatement',
 		CallExpression: 'CallExpression',
 		ExpressionStatement: 'ExpressionStatement',
+		FunctionDeclaration: 'FunctionDeclaration',
 		FunctionExpression: 'FunctionExpression',
 		Identifier: 'Identifier',
 		Literal: 'Literal',

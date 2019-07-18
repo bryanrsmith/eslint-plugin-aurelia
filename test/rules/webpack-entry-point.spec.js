@@ -3,11 +3,11 @@ import rule from '../../src/rules/webpack-entry-point';
 
 const ruleTester = new eslint.RuleTester({ parser: 'babel-eslint' });
 
-const moduleExportsEntryAppNotAurelia = `
+const moduleExportsAsFunction = ({ app }) => `
   module.exports = function () {
     return {
       entry: {
-        app: ['not-aurelia-bootstrapper']
+        ${app ? `app: ['${app}']` : ''}
       },
     }
   };
@@ -26,7 +26,7 @@ ruleTester.run('webpack-entry-point', rule, {
 			// Only webpack.config.js is checked for valid entry.app values
 			...embedFilenameInCode({
 				filename: '/some/dir/not.webpack.config.js',
-				code: moduleExportsEntryAppNotAurelia,
+				code: moduleExportsAsFunction({ app: 'not-aurelia-bootstrapper' }),
 			}),
 		},
 	],
@@ -34,7 +34,7 @@ ruleTester.run('webpack-entry-point', rule, {
 		{
 			...embedFilenameInCode({
 				filename: '/some/dir/webpack.config.js',
-				code: moduleExportsEntryAppNotAurelia,
+				code: moduleExportsAsFunction({ app: 'not-aurelia-bootstrapper' }),
 			}),
 			errors: [
 				{

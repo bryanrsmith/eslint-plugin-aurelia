@@ -1,5 +1,5 @@
 const path = require('path');
-
+const { types } = require('./eslint-types');
 /*
   Ensure that the `webpack.config.js` file correctly specifies the entry point
   as `aurelia-bootstrapper`.
@@ -16,20 +16,6 @@ const path = require('path');
 */
 
 const webpackConfigFileName = 'webpack.config.js';
-
-const types = {
-	ArrayExpression: 'ArrayExpression',
-	ArrowFunctionExpression: 'ArrowFunctionExpression',
-	AssignmentExpression: 'AssignmentExpression',
-	BlockStatement: 'BlockStatement',
-	ExpressionStatement: 'ExpressionStatement',
-	FunctionExpression: 'FunctionExpression',
-	Identifier: 'Identifier',
-	MemberExpression: 'MemberExpression',
-	ObjectExpression: 'ObjectExpression',
-	Property: 'Property',
-	ReturnStatement: 'ReturnStatement',
-};
 
 const isAssignedToModuleExports = context => {
 	const ancestors = context.getAncestors();

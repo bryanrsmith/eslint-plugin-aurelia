@@ -23,6 +23,12 @@ const embedFilenameInCode = ({ filename, code }) => ({
 ruleTester.run('webpack-entry-point', rule, {
 	valid: [
 		{
+			...embedFilenameInCode({
+				filename: '/some/dir/webpack.config.js',
+				code: moduleExportsAsFunction({ app: 'aurelia-bootstrapper' }),
+			}),
+		},
+		{
 			// Only webpack.config.js is checked for valid entry.app values
 			...embedFilenameInCode({
 				filename: '/some/dir/not.webpack.config.js',

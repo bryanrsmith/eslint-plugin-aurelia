@@ -190,7 +190,8 @@ const webpackEntryPointIsAureliaBootrap = context => node => {
 			return;
 		}
 		const elements = value.elements;
-		if (elements.length !== 1 || elements[0] !== 'aurelia-bootstrapper') {
+
+		if (elements.length !== 1 || elements[0].value !== 'aurelia-bootstrapper') {
 			context.report({
 				node,
 				message:

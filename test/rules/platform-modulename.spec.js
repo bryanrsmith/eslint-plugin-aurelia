@@ -10,6 +10,10 @@ const ruleTester = new eslint.RuleTester({ parser: 'babel-eslint' });
 ruleTester.run('platform-modulename', rule, {
 	valid: [
 		`
+  aurelia.use.globalResources(
+    PLATFORM.moduleName('./my-custom-element') // OK
+  )`,
+		`
   aurelia.use.globalResources([
     PLATFORM.moduleName('./my-custom-element') // OK
   ])`,
@@ -21,6 +25,21 @@ ruleTester.run('platform-modulename', rule, {
   ])`,
 	],
 	invalid: [
+		{
+			code: `
+  aurelia.use.globalResources(
+    './my-custom-element' // WRONG
+  )`,
+			errors: [
+				{
+					message:
+						"use.globalResources must wrap modules with 'PLATFORM.moduleName()'",
+					type: 'Literal',
+					line: 3,
+					column: 5,
+				},
+			],
+		},
 		{
 			code: `
   aurelia.use.globalResources([

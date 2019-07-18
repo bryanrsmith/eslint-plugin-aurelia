@@ -8,6 +8,7 @@ module.exports = {
 		ExpressionStatement: 'ExpressionStatement',
 		FunctionExpression: 'FunctionExpression',
 		Identifier: 'Identifier',
+		Literal: 'Literal',
 		MemberExpression: 'MemberExpression',
 		ObjectExpression: 'ObjectExpression',
 		Property: 'Property',

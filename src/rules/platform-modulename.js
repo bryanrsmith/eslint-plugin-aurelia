@@ -26,33 +26,35 @@ const calleeObjectIsAureliaUse = node => {
 	return true;
 };
 
-const checkGlobalResources = context => node => {
+const checkGlobalResources = context => callExpression => {
 	// https://aurelia.io/docs/api/framework/class/FrameworkConfiguration/method/globalResources
-	const nodeArguments = node.arguments;
+	const callExpressionArguments = callExpression.arguments;
 
 	// TODO: Handle non-array arguments
-	if (
-		nodeArguments.length !== 1 &&
-		nodeArguments[0].type === types.ArrayExpression
-	) {
+	if (callExpressionArguments.length !== 1) {
 		// TODO: Remove Console
 		// eslint-disable-next-line no-console
-		console.log('Ignoring arguments', arguments);
+		console.log('Ignoring incorrect number of arguments', arguments);
 
 		return false;
 	}
 
-	const elements = nodeArguments[0].elements;
-	elements
+	const arg = callExpressionArguments[0];
+	let globalResources = [arg]; // unify to array: use.globalResource(resource) => use.globalResource([resource])
+	if (arg.type === types.ArrayExpression) {
+		globalResources = arg.elements;
+	}
+
+	globalResources
 		.filter(
-			element =>
-				element.type !== types.CallExpression ||
-				(element.callee.object.name !== 'PLATFORM' &&
-					element.callee.property.name !== 'moduleName')
+			globalResource =>
+				globalResource.type !== types.CallExpression ||
+				(globalResource.callee.object.name !== 'PLATFORM' &&
+					globalResource.callee.property.name !== 'moduleName')
 		)
-		.map(element =>
+		.map(globalResource =>
 			context.report(
-				element,
+				globalResource,
 				"use.globalResources must wrap modules with 'PLATFORM.moduleName()'"
 			)
 		);

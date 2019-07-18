@@ -19,6 +19,7 @@ const webpackConfigFileName = 'webpack.config.js';
 
 const types = {
 	ArrayExpression: 'ArrayExpression',
+	ArrowFunctionExpression: 'ArrowFunctionExpression',
 	AssignmentExpression: 'AssignmentExpression',
 	BlockStatement: 'BlockStatement',
 	ExpressionStatement: 'ExpressionStatement',
@@ -79,32 +80,48 @@ const isAssignedToModuleExports = context => {
 
 	// TODO Handle direct assignment rather than functions
 	// TODO Handle arrow functions with body
-	// TODO Handle arrow functions with ObjectExpressions
-	const returnStatement = ancestors.pop();
-	if (!returnStatement || returnStatement.type !== types.ReturnStatement) {
+	const returnStatementOrArrowFunctionExpression = ancestors.pop();
+	if (!returnStatementOrArrowFunctionExpression) {
 		// TODO: Remove Console
 		// eslint-disable-next-line no-console
-		console.log('Ignoring returnStatement', returnStatement);
+		console.log(
+			'Ignoring returnStatementOrArrowFunctionExpression',
+			returnStatementOrArrowFunctionExpression
+		);
 		return false;
 	}
 
-	const blockStatement = ancestors.pop();
-	if (!blockStatement || blockStatement.type !== types.BlockStatement) {
-		// TODO: Remove Console
-		// eslint-disable-next-line no-console
-		console.log('Ignoring blockStatement', blockStatement);
-		return false;
-	}
+	if (returnStatementOrArrowFunctionExpression.type === types.ReturnStatement) {
+		const blockStatement = ancestors.pop();
+		if (!blockStatement || blockStatement.type !== types.BlockStatement) {
+			// TODO: Remove Console
+			// eslint-disable-next-line no-console
+			console.log('Ignoring blockStatement', blockStatement);
+			return false;
+		}
 
-	const functionExpression = ancestors.pop();
-	if (
-		!functionExpression ||
-		functionExpression.type !== types.FunctionExpression
+		const functionExpression = ancestors.pop();
+		if (
+			!functionExpression ||
+			functionExpression.type !== types.FunctionExpression
+		) {
+			// TODO: Remove Console
+			// eslint-disable-next-line no-console
+			console.log('Ignoring functionExpression', functionExpression);
+			return false;
+		}
+	} else if (
+		returnStatementOrArrowFunctionExpression.type ===
+		types.ArrowFunctionExpression
 	) {
+		// No additional tokens to consume
+	} else {
 		// TODO: Remove Console
 		// eslint-disable-next-line no-console
-		console.log('Ignoring functionExpression', functionExpression);
-		return false;
+		console.log(
+			'Ignoring unknown type returnStatementOrArrowFunctionExpression',
+			returnStatementOrArrowFunctionExpression
+		);
 	}
 
 	const assignmentExpression = ancestors.pop();

@@ -14,8 +14,17 @@ ruleTester.run('platform-modulename', rule, {
 		{
 			options: [{ debug: shouldEnableDebug }],
 			code: `
-export function configure(aurelia) {
-  aurelia.use.plugin(PLATFORM.moduleName('some-awesome-plugin')) // OK
+export class MyViewModel {
+
+  configureRouter(config, router) {
+    config.map([
+      {
+        route: '',
+        moduleId: PLATFORM.moduleName('pages/home') // OK
+      }
+    ])
+  }
+
 }
 `,
 		},
@@ -25,16 +34,25 @@ export function configure(aurelia) {
 		{
 			options: [{ debug: shouldEnableDebug }],
 			code: `
-export function configure(aurelia) {
-  aurelia.use.plugin('some-awesome-plugin') // WRONG
+export class MyViewModel {
+
+  configureRouter(config, router) {
+    config.map([
+      {
+        route: '',
+        moduleId: 'pages/home' // WRONG
+      }
+    ])
+  }
+
 }
 `,
 			errors: [
 				{
-					message: "use.plugin must wrap modules with 'PLATFORM.moduleName()'",
+					message: "map must wrap modules with 'PLATFORM.moduleName()'",
 					type: 'Literal',
-					line: 3,
-					column: 22,
+					line: 8,
+					column: 19,
 				},
 			],
 		},

@@ -201,6 +201,19 @@ module.exports = {
 				if (!nodeIsCallToPlatformModuleName(arg)) {
 					reportMustWrapModules('setRoot')(arg);
 				}
+				return;
+			}
+
+			if (
+				callee.property.name === 'feature' &&
+				node.arguments.length === 1 &&
+				calleeObjectIsAureliaUse(callee)
+			) {
+				const arg = node.arguments[0];
+				if (!nodeIsCallToPlatformModuleName(arg)) {
+					reportMustWrapModules('use.feature')(arg);
+				}
+				return;
 			}
 
 			return;

@@ -4,6 +4,8 @@
 
 const { types } = require('./eslint-types');
 
+const identity = x => x;
+
 const nameOfNode = node => {
 	if (node.type === types.MethodDefinition) {
 		return node.key.name;
@@ -172,43 +174,33 @@ module.exports = {
 				`${call} must wrap modules with 'PLATFORM.moduleName()'`
 			);
 
-		const checkArgumentsWrappedInPlatformModuleName = callExpression => {
+		const transformRouteToModuleIdNode = routeNode => {
+			if (routeNode.type !== types.ObjectExpression) {
+				return undefined;
+			}
+			const moduleIdProperty = routeNode.properties.filter(
+				property => property.key.name === 'moduleId'
+			)[0];
+			if (!moduleIdProperty) {
+				return undefined;
+			}
+			return moduleIdProperty.value;
+		};
+
+		const checkArgumentsWrappedInPlatformModuleName = (
+			callExpression,
+			{ transformation = identity, callName = undefined }
+		) => {
 			const arg1 = callExpression.arguments[0];
 			// Treat: single arg call and array arg call the same
 			const args = arg1.type === types.ArrayExpression ? arg1.elements : [arg1];
 
 			args
-				.map(objectExpression => {
-					if (objectExpression.type !== types.ObjectExpression) {
-						return undefined;
-					}
-					const moduleIdProperty = objectExpression.properties.filter(
-						property => property.key.name === 'moduleId'
-					)[0];
-					if (!moduleIdProperty) {
-						return undefined;
-					}
-					return moduleIdProperty.value;
-				})
+				.map(transformation)
 				.filter(arg => arg && !nodeIsCallToPlatformModuleName(arg))
-				.map(reportMustWrapModules(callExpression.callee.property.name));
-		};
-
-		const checkGlobalResources = callExpression => {
-			// https://aurelia.io/docs/api/framework/class/FrameworkConfiguration/method/globalResources
-			const callExpressionArguments = callExpression.arguments;
-
-			const arg = callExpressionArguments[0];
-			let globalResources = [arg]; // unify to array: use.globalResource(resource) => use.globalResource([resource])
-			if (arg.type === types.ArrayExpression) {
-				globalResources = arg.elements;
-			}
-
-			globalResources
-				.filter(
-					globalResource => !nodeIsCallToPlatformModuleName(globalResource)
-				)
-				.map(reportMustWrapModules('use.globalResources'));
+				.map(
+					reportMustWrapModules(callName || callExpression.callee.property.name)
+				);
 		};
 
 		const checkRouterConfig = node => {
@@ -271,7 +263,9 @@ module.exports = {
 			// https://aurelia.io/docs/api/router/class/RouterConfiguration/method/map
 			// https://aurelia.io/docs/api/router/interface/RouteConfig
 			// Either a single RouteConfig or an array of them.
-			checkArgumentsWrappedInPlatformModuleName(node);
+			checkArgumentsWrappedInPlatformModuleName(node, {
+				transformation: transformRouteToModuleIdNode,
+			});
 		};
 
 		const usesPlatformModuleName = node => {
@@ -282,7 +276,9 @@ module.exports = {
 				node.arguments.length === 1 &&
 				calleeObjectIsAureliaUse(callee)
 			) {
-				checkGlobalResources(node);
+				checkArgumentsWrappedInPlatformModuleName(node, {
+					callName: 'use.globalResources',
+				});
 				return;
 			}
 
@@ -291,10 +287,10 @@ module.exports = {
 				node.arguments.length === 1 &&
 				calleeObjectIsAurelia(callee)
 			) {
-				const arg = node.arguments[0];
-				if (!nodeIsCallToPlatformModuleName(arg)) {
-					reportMustWrapModules('setRoot')(arg);
-				}
+				checkArgumentsWrappedInPlatformModuleName(node, {
+					callName: 'setRoot',
+				});
+
 				return;
 			}
 
@@ -303,10 +299,9 @@ module.exports = {
 				node.arguments.length === 1 &&
 				calleeObjectIsAureliaUse(callee)
 			) {
-				const arg = node.arguments[0];
-				if (!nodeIsCallToPlatformModuleName(arg)) {
-					reportMustWrapModules('use.feature')(arg);
-				}
+				checkArgumentsWrappedInPlatformModuleName(node, {
+					callName: 'use.feature',
+				});
 				return;
 			}
 
@@ -315,10 +310,9 @@ module.exports = {
 				node.arguments.length === 1 &&
 				calleeObjectIsAureliaUse(callee)
 			) {
-				const arg = node.arguments[0];
-				if (!nodeIsCallToPlatformModuleName(arg)) {
-					reportMustWrapModules('use.plugin')(arg);
-				}
+				checkArgumentsWrappedInPlatformModuleName(node, {
+					callName: 'use.plugin',
+				});
 				return;
 			}
 

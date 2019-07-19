@@ -34,7 +34,7 @@ module.exports = {
 
 		const logDebug = (...args) => {
 			if (isDebugEnabled) {
-				console.log('DEBUG: ', args);
+				console.log('DEBUG:', ...args);
 			}
 		};
 

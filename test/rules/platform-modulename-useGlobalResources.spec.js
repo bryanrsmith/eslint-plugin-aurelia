@@ -57,7 +57,7 @@ export function configure(aurelia) {
 			errors: [
 				{
 					message:
-						"use.globalResources must wrap modules with 'PLATFORM.moduleName()'",
+						"globalResources must wrap modules with 'PLATFORM.moduleName()'",
 					type: 'Literal',
 					line: 4,
 					column: 5,
@@ -76,7 +76,7 @@ export function configure(aurelia) {
 			errors: [
 				{
 					message:
-						"use.globalResources must wrap modules with 'PLATFORM.moduleName()'",
+						"globalResources must wrap modules with 'PLATFORM.moduleName()'",
 					type: 'Literal',
 					line: 4,
 					column: 5,
@@ -97,7 +97,7 @@ export function configure(au) {
 			errors: [
 				{
 					message:
-						"use.globalResources must wrap modules with 'PLATFORM.moduleName()'",
+						"globalResources must wrap modules with 'PLATFORM.moduleName()'",
 					type: 'Literal',
 					line: 5,
 					column: 5,
@@ -117,21 +117,21 @@ export function configure(aurelia) {
 			errors: [
 				{
 					message:
-						"use.globalResources must wrap modules with 'PLATFORM.moduleName()'",
+						"globalResources must wrap modules with 'PLATFORM.moduleName()'",
 					type: 'Literal',
 					line: 4,
 					column: 5,
 				},
 				{
 					message:
-						"use.globalResources must wrap modules with 'PLATFORM.moduleName()'",
+						"globalResources must wrap modules with 'PLATFORM.moduleName()'",
 					type: 'Literal',
 					line: 5,
 					column: 5,
 				},
 				{
 					message:
-						"use.globalResources must wrap modules with 'PLATFORM.moduleName()'",
+						"globalResources must wrap modules with 'PLATFORM.moduleName()'",
 					type: 'Literal',
 					line: 6,
 					column: 5,

@@ -6,6 +6,17 @@ const { types } = require('./eslint-types');
 
 const identity = x => x;
 
+const getName = node => {
+	if (node.type === types.Identifier) {
+		return node.name;
+	}
+
+	if (node.type === types.MemberExpression) {
+		return `${getName(node.property)}`;
+	}
+
+	return `getName() unknown Node type ${node.type}`;
+};
 const nameOfNode = node => {
 	if (node.type === types.MethodDefinition) {
 		return node.key.name;
@@ -168,10 +179,10 @@ module.exports = {
 			node.callee.object.name === 'PLATFORM' &&
 			node.callee.property.name === 'moduleName';
 
-		const reportMustWrapModules = call => node =>
+		const reportMustWrapModules = callName => node =>
 			context.report(
 				node,
-				`${call} must wrap modules with 'PLATFORM.moduleName()'`
+				`${callName} must wrap modules with 'PLATFORM.moduleName()'`
 			);
 
 		const transformRouteToModuleIdNode = routeNode => {
@@ -189,18 +200,17 @@ module.exports = {
 
 		const checkArgumentsWrappedInPlatformModuleName = (
 			callExpression,
-			{ transformation = identity, callName = undefined }
+			{ transformation = identity }
 		) => {
 			const arg1 = callExpression.arguments[0];
 			// Treat: single arg call and array arg call the same
 			const args = arg1.type === types.ArrayExpression ? arg1.elements : [arg1];
 
+			const callName = getName(callExpression.callee);
 			args
 				.map(transformation)
 				.filter(arg => arg && !nodeIsCallToPlatformModuleName(arg))
-				.map(
-					reportMustWrapModules(callName || callExpression.callee.property.name)
-				);
+				.map(reportMustWrapModules(callName));
 		};
 
 		const checkRouterConfig = node => {
@@ -276,9 +286,7 @@ module.exports = {
 				node.arguments.length === 1 &&
 				calleeObjectIsAureliaUse(callee)
 			) {
-				checkArgumentsWrappedInPlatformModuleName(node, {
-					callName: 'use.globalResources',
-				});
+				checkArgumentsWrappedInPlatformModuleName(node);
 				return;
 			}
 
@@ -287,9 +295,7 @@ module.exports = {
 				node.arguments.length === 1 &&
 				calleeObjectIsAurelia(callee)
 			) {
-				checkArgumentsWrappedInPlatformModuleName(node, {
-					callName: 'setRoot',
-				});
+				checkArgumentsWrappedInPlatformModuleName(node);
 
 				return;
 			}
@@ -299,9 +305,7 @@ module.exports = {
 				node.arguments.length === 1 &&
 				calleeObjectIsAureliaUse(callee)
 			) {
-				checkArgumentsWrappedInPlatformModuleName(node, {
-					callName: 'use.feature',
-				});
+				checkArgumentsWrappedInPlatformModuleName(node);
 				return;
 			}
 
@@ -310,9 +314,7 @@ module.exports = {
 				node.arguments.length === 1 &&
 				calleeObjectIsAureliaUse(callee)
 			) {
-				checkArgumentsWrappedInPlatformModuleName(node, {
-					callName: 'use.plugin',
-				});
+				checkArgumentsWrappedInPlatformModuleName(node);
 				return;
 			}
 

@@ -31,7 +31,7 @@ export function configure(aurelia) {
 `,
 			errors: [
 				{
-					message: "use.plugin must wrap modules with 'PLATFORM.moduleName()'",
+					message: "plugin must wrap modules with 'PLATFORM.moduleName()'",
 					type: 'Literal',
 					line: 3,
 					column: 22,

@@ -71,6 +71,9 @@ module.exports = {
 			}
 		};
 
+		const wrapInPlatformModuleName = node => fixer =>
+			fixer.replaceText(node, `PLATFORM.moduleName('${node.value}')`);
+
 		const captureAureliaConfigure = exportNamedDeclaration => {
 			const functionDeclaration = exportNamedDeclaration.declaration;
 			if (functionDeclaration.type !== types.FunctionDeclaration) {
@@ -180,10 +183,11 @@ module.exports = {
 			node.callee.property.name === 'moduleName';
 
 		const reportMustWrapModules = callName => node =>
-			context.report(
+			context.report({
 				node,
-				`${callName} must wrap modules with 'PLATFORM.moduleName()'`
-			);
+				message: `${callName} must wrap modules with 'PLATFORM.moduleName()'`,
+				fix: wrapInPlatformModuleName(node),
+			});
 
 		const transformRouteToModuleIdNode = routeNode => {
 			if (routeNode.type !== types.ObjectExpression) {

@@ -63,6 +63,13 @@ export function configure(aurelia) {
 					column: 5,
 				},
 			],
+			output: `
+export function configure(aurelia) {
+  aurelia.use.globalResources(
+    PLATFORM.moduleName('./my-custom-element') // WRONG
+  )
+}
+`,
 		},
 		{
 			options: [{ debug: shouldEnableDebug }],
@@ -82,6 +89,13 @@ export function configure(aurelia) {
 					column: 5,
 				},
 			],
+			output: `
+export function configure(aurelia) {
+  aurelia.use.globalResources([
+    PLATFORM.moduleName('./my-custom-element') // WRONG
+  ])
+}
+`,
 		},
 		{
 			options: [{ debug: shouldEnableDebug }],
@@ -103,6 +117,15 @@ export function configure(au) {
 					column: 5,
 				},
 			],
+			output: `
+export function configure(au) {
+  au.use.globalResources([
+    PLATFORM.moduleName('./my-custom-element1'), // OK
+    PLATFORM.moduleName('./my-custom-element2'), // WRONG
+    PLATFORM.moduleName('./my-custom-element3'), // OK
+  ])
+}
+`,
 		},
 		{
 			options: [{ debug: shouldEnableDebug }],
@@ -137,6 +160,14 @@ export function configure(aurelia) {
 					column: 5,
 				},
 			],
+			output: `
+export function configure(aurelia) {
+  aurelia.use.globalResources([
+    PLATFORM.moduleName('./my-custom-element1'), // WRONG
+    PLATFORM.moduleName('./my-custom-element2'), // WRONG
+    PLATFORM.moduleName('./my-custom-element3'), // WRONG
+  ])
+}`,
 		},
 	],
 });

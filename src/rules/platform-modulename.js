@@ -41,12 +41,6 @@ module.exports = {
 		const captureAureliaConfigure = exportNamedDeclaration => {
 			const functionDeclaration = exportNamedDeclaration.declaration;
 			if (functionDeclaration.type !== types.FunctionDeclaration) {
-				logDebug(
-					'captureAureliaConfigure():',
-					'Ignoring exportNamedDeclaration',
-					exportNamedDeclaration
-				);
-
 				return;
 			}
 
@@ -54,12 +48,6 @@ module.exports = {
 				!functionDeclaration.id ||
 				functionDeclaration.id.name !== 'configure'
 			) {
-				logDebug(
-					'captureAureliaConfigure():',
-					'Ignoring non "configure" function',
-					functionDeclaration
-				);
-
 				return;
 			}
 

@@ -201,6 +201,7 @@ module.exports = {
 				if (!nodeIsCallToPlatformModuleName(arg)) {
 					reportMustWrapModules('setRoot')(arg);
 				}
+				return;
 			}
 
 			return;

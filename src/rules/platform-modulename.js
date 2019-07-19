@@ -97,12 +97,6 @@ module.exports = {
 			if (aureliaParameter.name !== callee.object.name) {
 				logDebug(
 					'calleeObjectIsAurelia():',
-					'aurelia parameter=',
-					aureliaParameter
-				);
-
-				logDebug(
-					'calleeObjectIsAurelia():',
 					'Ignoring callee as does not use aurelia',
 					aureliaParameter,
 					callee

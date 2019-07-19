@@ -99,17 +99,39 @@ module.exports = {
 		};
 
 		const calleeObjectIsAureliaUse = callee => {
+			// Check for calls like aurelia.use.<anyMethod>();
 			if (callee.type !== types.MemberExpression) {
-				logDebug('Ignoring callee', callee);
+				logDebug(
+					'calleeObjectIsAureliaUse():',
+					'Ignoring callee as wrong type',
+					callee
+				);
 
 				return false;
 			}
 
-			const object = callee.object;
-			const property = object.property;
+			const object = callee.object; // MemberExpression of call
+			const objectProperty = object.property;
 
-			if (property.type !== types.Identifier || property.name !== 'use') {
-				logDebug('Ignoring property', property);
+			if (!objectProperty) {
+				logDebug(
+					'calleeObjectIsAureliaUse():',
+					'Ignoring callee as object has no property',
+					callee
+				);
+
+				return false;
+			}
+
+			if (
+				objectProperty.type !== types.Identifier ||
+				objectProperty.name !== 'use'
+			) {
+				logDebug(
+					'calleeObjectIsAureliaUse():',
+					'Ignoring property as not .use',
+					objectProperty
+				);
 
 				return false;
 			}

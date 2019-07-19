@@ -12,7 +12,7 @@ const shouldEnableDebug = false;
 ruleTester.run('platform-modulename', rule, {
 	valid: [
 		{
-			options: [{ debug: shouldEnableDebug || true }],
+			options: [{ debug: shouldEnableDebug }],
 			code: ` // A Feature Module index.js
   export function configure(config) {
     // Doesn't use PLATFORM.module()

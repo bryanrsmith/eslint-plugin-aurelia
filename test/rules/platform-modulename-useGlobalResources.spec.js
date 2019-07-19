@@ -46,7 +46,7 @@ export function configure(au) {
 	],
 	invalid: [
 		{
-			options: [{ debug: shouldEnableDebug || true }],
+			options: [{ debug: shouldEnableDebug }],
 			code: `
 export function configure(aurelia) {
   aurelia.use.globalResources(

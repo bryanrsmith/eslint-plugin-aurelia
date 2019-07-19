@@ -216,6 +216,18 @@ module.exports = {
 				return;
 			}
 
+			if (
+				callee.property.name === 'plugin' &&
+				node.arguments.length === 1 &&
+				calleeObjectIsAureliaUse(callee)
+			) {
+				const arg = node.arguments[0];
+				if (!nodeIsCallToPlatformModuleName(arg)) {
+					reportMustWrapModules('use.plugin')(arg);
+				}
+				return;
+			}
+
 			return;
 		};
 

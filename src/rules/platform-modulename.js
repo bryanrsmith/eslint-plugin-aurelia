@@ -200,7 +200,7 @@ module.exports = {
 
 		const checkArgumentsWrappedInPlatformModuleName = (
 			callExpression,
-			{ transformation = identity }
+			{ transformation } = { transformation: identity }
 		) => {
 			const arg1 = callExpression.arguments[0];
 			// Treat: single arg call and array arg call the same

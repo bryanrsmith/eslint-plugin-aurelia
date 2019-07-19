@@ -4,6 +4,26 @@
 
 const { types } = require('./eslint-types');
 
+const nameOfNode = node => {
+	if (node.type === types.MethodDefinition) {
+		return node.key.name;
+	}
+
+	return undefined;
+};
+
+const lookupInParentHierarchy = (node, type, name) => {
+	let current = node.parent;
+	while (current.type !== types.Program) {
+		if (current.type === type && nameOfNode(current) === name) {
+			return current;
+		}
+		current = current.parent;
+	}
+
+	return undefined;
+};
+
 module.exports = {
 	meta: {
 		type: 'problem',
@@ -141,6 +161,7 @@ module.exports = {
 		};
 
 		const nodeIsCallToPlatformModuleName = node =>
+			node &&
 			node.type === types.CallExpression &&
 			node.callee.object.name === 'PLATFORM' &&
 			node.callee.property.name === 'moduleName';
@@ -150,6 +171,28 @@ module.exports = {
 				node,
 				`${call} must wrap modules with 'PLATFORM.moduleName()'`
 			);
+
+		const checkArgumentsWrappedInPlatformModuleName = callExpression => {
+			const arg1 = callExpression.arguments[0];
+			// Treat: single arg call and array arg call the same
+			const args = arg1.type === types.ArrayExpression ? arg1.elements : [arg1];
+
+			args
+				.map(objectExpression => {
+					if (objectExpression.type !== types.ObjectExpression) {
+						return undefined;
+					}
+					const moduleIdProperty = objectExpression.properties.filter(
+						property => property.key.name === 'moduleId'
+					)[0];
+					if (!moduleIdProperty) {
+						return undefined;
+					}
+					return moduleIdProperty.value;
+				})
+				.filter(arg => arg && !nodeIsCallToPlatformModuleName(arg))
+				.map(reportMustWrapModules(callExpression.callee.property.name));
+		};
 
 		const checkGlobalResources = callExpression => {
 			// https://aurelia.io/docs/api/framework/class/FrameworkConfiguration/method/globalResources
@@ -166,6 +209,69 @@ module.exports = {
 					globalResource => !nodeIsCallToPlatformModuleName(globalResource)
 				)
 				.map(reportMustWrapModules('use.globalResources'));
+		};
+
+		const checkRouterConfig = node => {
+			// https://aurelia.io/docs/api/router/interface/ConfiguresRouter/method/configureRouter
+			const callee = node.callee;
+			const calleeObject = callee.object;
+
+			if (!calleeObject) {
+				logDebug(
+					'checkRouterConfig():',
+					'Ignoring missing callee.object',
+					callee
+				);
+				return;
+			}
+
+			const containedWithinMethodDefinition = lookupInParentHierarchy(
+				node,
+				types.MethodDefinition,
+				'configureRouter'
+			);
+			if (!containedWithinMethodDefinition) {
+				logDebug(
+					'checkRouterConfig():',
+					'Ignoring as not contained within MethodDefinition',
+					node
+				);
+				return;
+			}
+
+			const methodValue = containedWithinMethodDefinition.value;
+			if (methodValue.type !== types.FunctionExpression) {
+				logDebug(
+					'checkRouterConfig():',
+					'Ignoring as contained within MethodDefinition does not have FunctionExpression as value',
+					containedWithinMethodDefinition
+				);
+				return;
+			}
+
+			const params = methodValue.params;
+			if (!params && params.length !== 2) {
+				logDebug(
+					'checkRouterConfig():',
+					'Ignoring as MethodDefinition as FunctionExpression does not have correct signature',
+					containedWithinMethodDefinition
+				);
+				return;
+			}
+
+			if (calleeObject.name !== params[0].name) {
+				logDebug(
+					'checkRouterConfig():',
+					'Ignoring as call of .map as not on Router',
+					containedWithinMethodDefinition
+				);
+				return;
+			}
+
+			// https://aurelia.io/docs/api/router/class/RouterConfiguration/method/map
+			// https://aurelia.io/docs/api/router/interface/RouteConfig
+			// Either a single RouteConfig or an array of them.
+			checkArgumentsWrappedInPlatformModuleName(node);
 		};
 
 		const usesPlatformModuleName = node => {
@@ -213,6 +319,11 @@ module.exports = {
 				if (!nodeIsCallToPlatformModuleName(arg)) {
 					reportMustWrapModules('use.plugin')(arg);
 				}
+				return;
+			}
+
+			if (callee.property.name === 'map' && node.arguments.length === 1) {
+				checkRouterConfig(node);
 				return;
 			}
 

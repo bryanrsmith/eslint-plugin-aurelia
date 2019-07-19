@@ -41,7 +41,11 @@ module.exports = {
 		const captureAureliaConfigure = exportNamedDeclaration => {
 			const functionDeclaration = exportNamedDeclaration.declaration;
 			if (functionDeclaration.type !== types.FunctionDeclaration) {
-				logDebug('Ignoring exportNamedDeclaration', exportNamedDeclaration);
+				logDebug(
+					'captureAureliaConfigure():',
+					'Ignoring exportNamedDeclaration',
+					exportNamedDeclaration
+				);
 
 				return;
 			}
@@ -50,7 +54,11 @@ module.exports = {
 				!functionDeclaration.id ||
 				functionDeclaration.id.name !== 'configure'
 			) {
-				logDebug('Ignoring non "configure" function', functionDeclaration);
+				logDebug(
+					'captureAureliaConfigure():',
+					'Ignoring non "configure" function',
+					functionDeclaration
+				);
 
 				return;
 			}
@@ -58,6 +66,7 @@ module.exports = {
 			const params = functionDeclaration.params;
 			if (params.length !== 1) {
 				logDebug(
+					'captureAureliaConfigure():',
 					'Ignoring "configure" function with incorrect params',
 					functionDeclaration
 				);
@@ -70,13 +79,14 @@ module.exports = {
 
 		const calleeObjectIsAurelia = callee => {
 			if (callee.type !== types.MemberExpression) {
-				logDebug('Ignoring callee', callee);
+				logDebug('calleeObjectIsAurelia():', 'Ignoring callee', callee);
 
 				return false;
 			}
 
 			if (!aureliaParameter) {
 				logDebug(
+					'calleeObjectIsAurelia():',
 					'Ignoring calleeObjectIsAurelia check, aureliaParameter is not set',
 					callee
 				);
@@ -85,9 +95,14 @@ module.exports = {
 			}
 
 			if (aureliaParameter.name !== callee.object.name) {
-				logDebug('aurelia parameter=', aureliaParameter);
+				logDebug(
+					'calleeObjectIsAurelia():',
+					'aurelia parameter=',
+					aureliaParameter
+				);
 
 				logDebug(
+					'calleeObjectIsAurelia():',
 					'Ignoring callee as does not use aurelia',
 					aureliaParameter,
 					callee

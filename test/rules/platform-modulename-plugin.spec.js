@@ -5,7 +5,7 @@ import rule from '../../src/rules/platform-modulename';
 
 const ruleTester = new eslint.RuleTester({ parser: 'babel-eslint' });
 
-const shouldEnableDebug = true;
+const shouldEnableDebug = false;
 
 // Use https://astexplorer.net/ and `espree` tokens to transform your `code`
 // into an AST for use here.

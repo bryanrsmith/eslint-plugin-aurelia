@@ -53,7 +53,7 @@ ruleTester.run('webpack-entry-point', rule, {
 			errors: [
 				{
 					message:
-						"entry.app must be ['aurelia-bootstrapper']: found ['not-aurelia-bootstrapper']",
+						"Expected entry.app to be ['aurelia-bootstrapper'] but found ['not-aurelia-bootstrapper']",
 					type: 'Identifier',
 				},
 			],
@@ -66,7 +66,7 @@ ruleTester.run('webpack-entry-point', rule, {
 			errors: [
 				{
 					message:
-						"entry.app must be ['aurelia-bootstrapper']: found ['not-aurelia-bootstrapper']",
+						"Expected entry.app to be ['aurelia-bootstrapper'] but found ['not-aurelia-bootstrapper']",
 					type: 'Identifier',
 				},
 			],

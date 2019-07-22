@@ -198,7 +198,7 @@ const webpackEntryPointIsAureliaBootrap = context => node => {
 			context.report({
 				node,
 				message:
-					"entry.app must be ['aurelia-bootstrapper']: found {{ value }}",
+					"Expected entry.app to be ['aurelia-bootstrapper'] but found {{ value }}",
 				data: {
 					value: context.getSourceCode().getText(value),
 				},

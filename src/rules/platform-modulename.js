@@ -286,6 +286,7 @@ module.exports = {
 			const callee = node.callee;
 
 			if (
+				callee.property &&
 				callee.property.name === 'globalResources' &&
 				node.arguments.length === 1 &&
 				calleeObjectIsAureliaUse(callee)
@@ -295,6 +296,7 @@ module.exports = {
 			}
 
 			if (
+				callee.property &&
 				callee.property.name === 'setRoot' &&
 				node.arguments.length === 1 &&
 				calleeObjectIsAurelia(callee)
@@ -305,6 +307,7 @@ module.exports = {
 			}
 
 			if (
+				callee.property &&
 				callee.property.name === 'feature' &&
 				node.arguments.length === 1 &&
 				calleeObjectIsAureliaUse(callee)
@@ -314,6 +317,7 @@ module.exports = {
 			}
 
 			if (
+				callee.property &&
 				callee.property.name === 'plugin' &&
 				node.arguments.length === 1 &&
 				calleeObjectIsAureliaUse(callee)
@@ -322,7 +326,11 @@ module.exports = {
 				return;
 			}
 
-			if (callee.property.name === 'map' && node.arguments.length === 1) {
+			if (
+				callee.property &&
+				callee.property.name === 'map' &&
+				node.arguments.length === 1
+			) {
 				checkRouterConfig(node);
 				return;
 			}

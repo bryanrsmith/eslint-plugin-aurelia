@@ -1,0 +1,20 @@
+module.exports = {
+	types: {
+		ArrayExpression: 'ArrayExpression',
+		ArrowFunctionExpression: 'ArrowFunctionExpression',
+		AssignmentExpression: 'AssignmentExpression',
+		BlockStatement: 'BlockStatement',
+		CallExpression: 'CallExpression',
+		ExpressionStatement: 'ExpressionStatement',
+		FunctionDeclaration: 'FunctionDeclaration',
+		FunctionExpression: 'FunctionExpression',
+		Identifier: 'Identifier',
+		Literal: 'Literal',
+		MemberExpression: 'MemberExpression',
+		MethodDefinition: 'MethodDefinition',
+		ObjectExpression: 'ObjectExpression',
+		Program: 'Program',
+		Property: 'Property',
+		ReturnStatement: 'ReturnStatement',
+	},
+};

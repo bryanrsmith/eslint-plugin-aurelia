@@ -217,11 +217,7 @@ module.exports = {
 			fixable: 'code',
 		},
 	},
-	create: context => {
-		// state here
-
-		return {
-			Identifier: webpackEntryPointIsAureliaBootrap(context),
-		};
-	},
+	create: context => ({
+		Identifier: webpackEntryPointIsAureliaBootrap(context),
+	}),
 };

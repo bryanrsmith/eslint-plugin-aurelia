@@ -32,7 +32,8 @@
     "major": "release major"
   },
   "dependencies": {
-    "eslint-plugin-sort-class-members": "^1.0.1"
+    "eslint-plugin-sort-class-members": "^1.0.1",
+    "prettier": "^1.18.2"
   },
   "peerDependencies": {
     "eslint": ">=0.8.0"

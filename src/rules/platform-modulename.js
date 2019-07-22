@@ -208,7 +208,7 @@ module.exports = {
 		) => {
 			const arg1 = callExpression.arguments[0];
 			// Treat: single arg call and array arg call the same
-			const args = arg1.type === types.ArrayExpression ? arg1.elements : [ arg1 ];
+			const args = arg1.type === types.ArrayExpression ? arg1.elements : [arg1]; // eslint-disable-line array-bracket-spacing
 
 			const callName = getName(callExpression.callee);
 			args
